@@ -11,14 +11,14 @@ import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
 } from "recharts";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+// const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 
 const fetchDashboardData = async () => {
     // Ambil data produk dan transaksi
     const [resProd, resTrans] = await Promise.all([
-        fetch(`${API_URL}/api/products`),
-        fetch(`${API_URL}/api/transactions`)
+        fetch(`/api/products`),
+        fetch(`/api/transactions`)
     ]);
 
     const dataProd = await resProd.json();
@@ -28,7 +28,7 @@ const fetchDashboardData = async () => {
 
     // Ambil data prediksi & inventory untuk setiap produk secara paralel
     const predictionPromises = products.map((p: any) =>
-        fetch(`${API_URL}/api/predict-stock?product_id=${p.product_id}`)
+        fetch(`/api/predict-stock?product_id=${p.product_id}`)
             .then(r => r.json())
             .catch(() => null) // Abaikan jika model belum di-training
     );

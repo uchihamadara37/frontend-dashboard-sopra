@@ -8,15 +8,15 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Loader2, TrendingUp, Users, Package, AlertTriangle, CheckCircle2, Zap } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from "recharts";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+// const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // ============================================================================
 // FUNGSI FETCHER: Menggabungkan 3 Endpoint Sekaligus
 // ============================================================================
 const fetchSummaryData = async () => {
     const [segmentsRes, recsRes] = await Promise.all([
-        fetch(`${API_URL}/api/segments`),
-        fetch(`${API_URL}/api/best-product`)
+        fetch(`/api/segments`),
+        fetch(`/api/best-product`)
     ]);
 
     const segmentsData = await segmentsRes.json();
@@ -25,7 +25,7 @@ const fetchSummaryData = async () => {
     // Ambil data prediksi stok HANYA untuk 5 produk terlaris agar loading sangat cepat
     const topProducts = recsData.best_sellers || [];
     const stockPromises = topProducts.map((p: any) =>
-        fetch(`${API_URL}/api/predict-stock?product_id=${p.product_id}`).then(r => r.json()).catch(() => null)
+        fetch(`/api/predict-stock?product_id=${p.product_id}`).then(r => r.json()).catch(() => null)
     );
     const stockDataRaw = await Promise.all(stockPromises);
     const stockData = stockDataRaw.filter(s => s && s.status === "success");

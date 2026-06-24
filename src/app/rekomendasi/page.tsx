@@ -8,10 +8,10 @@ import { cn } from "@/lib/utils";
 
 
 // fungsi fetcher
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+// const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const fetchSegments = async () => {
-    const res = await fetch(`${API_URL}/api/segments`);
+    const res = await fetch(`/api/segments`);
     if (!res.ok) throw new Error("Gagal mengambil data segmen");
     const data = await res.json();
     console.log("hasil ok", data); // Debugging: log hasil response
@@ -19,8 +19,8 @@ const fetchSegments = async () => {
 };
 const fetchBestProduct = async (threshold?: number) => {
     const url = threshold
-        ? `${API_URL}/api/best-product?threshold=${threshold}`
-        : `${API_URL}/api/best-product`;
+        ? `/api/best-product?threshold=${threshold}`
+        : `/api/best-product`;
 
     const res = await fetch(url);
     if (!res.ok) throw new Error("Gagal mengambil data rekomendasi");
@@ -31,8 +31,8 @@ const fetchBestProduct = async (threshold?: number) => {
 };
 const fetchRecommendations = async (targetProduct?: string) => {
     const url = targetProduct
-        ? `${API_URL}/api/recomendations?target_product=${targetProduct}`
-        : `${API_URL}/api/recomendations`;
+        ? `/api/recomendations?target_product=${targetProduct}`
+        : `/api/recomendations`;
     const res = await fetch(url);
     if (!res.ok) throw new Error("Gagal mengambil data rekomendasi");
     const data = await res.json();

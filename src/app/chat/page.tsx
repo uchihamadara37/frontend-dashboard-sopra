@@ -14,10 +14,10 @@ interface Message {
     content: string;
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+// const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const sendChatMessage = async (message: string) => {
-    const res = await fetch(`${API_URL}/api/chat`, {
+    const res = await fetch(`/api/chat`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
